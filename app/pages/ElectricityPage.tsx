@@ -1,26 +1,22 @@
-import { LineChart, Line } from "recharts";
-import ElectricityTable from "~/components/ElectricityTable";
-import { Card } from "~/components/ui/card";
+import ElectricityProviderTable from "~/components/ElectricityProviderTable";
 import ElectricityCurrentConnection from "~/components/ElectricityCurrentConnection";
 import ElectricityCurrentPlan from "~/components/ElectricityCurrentPlan";
 import ElectricityUsage from "~/components/ElectricityUsage";
-
-const data = [{ name: "Page A", uv: 400, pv: 2400, amt: 2400 }, { name: "Page A", uv: 400, pv: 2400, amt: 2400 }];
+import ElectricityHistoryChart from "~/components/ElectricityHistoryChart";
+import { ScrollArea } from "~/components/ui/scroll-area";
 
 export default function ElectricityPage() {
   return (
-    <div className="flex flex-col mt-4 gap-4">
-      <Card className="p-4">
+    <ScrollArea className="h-[calc(100vh-86px)] pr-2 mt-4">
+      <div className="flex flex-col gap-4 p-4">
         <div className="grid grid-cols-3 gap-2">
           <ElectricityCurrentConnection />
           <ElectricityCurrentPlan />
           <ElectricityUsage />
         </div>
-        <ElectricityTable />
-        <LineChart width={400} height={400} data={data}>
-          <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-        </LineChart>
-      </Card>
-    </div>
+        <ElectricityProviderTable />
+        <ElectricityHistoryChart />
+      </div>
+    </ScrollArea>
   );
 }

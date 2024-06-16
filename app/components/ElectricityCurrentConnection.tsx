@@ -6,87 +6,63 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 import { Label } from "~/components/ui/label";
-import { useState } from "react";
-
-const connectionTariffs = [
-  {
-    name: "16a",
-    amperage: "16A",
-    phases: [
-      {
-        name: "1",
-        phase: "1",
-        plans: [
-          {
-            name: "basic",
-            plan: "Basic",
-            tariff: 3.92,
-          },
-          {
-            name: "special",
-            plan: "Special",
-            tariff: 2.71,
-          },
-        ],
-      },
-      {
-        name: "3",
-        phase: "3",
-        plans: [
-          {
-            name: "basic",
-            plan: "Basic",
-            tariff: 8.71,
-          },
-          {
-            name: "special",
-            plan: "Special",
-            tariff: 6.39,
-          },
-        ],
-      },
-    ],
-  },
-];
-
-const getAmperages = () => {
-  return connectionTariffs;
-};
-
-const getPhaseCount = (amperage?: string) => {
-  return connectionTariffs.find((a) => a.name === amperage)?.phases;
-};
-
-const getPlans = (amperage?: string, phase?: string) => {
-  return connectionTariffs
-    .find((a) => a.name === amperage)
-    ?.phases.find((p) => p.name === phase)?.plans;
-};
+import { useMemo, useState } from "react";
+import { useElectricityStore } from "~/stores/useElectricityStore";
 
 export default function ElectricityCurrentConnection() {
-  const [amperage, setAmperage] = useState<string>();
-  const [phaseCount, setPhaseCount] = useState<string>();
-  const [plan, setPlan] = useState<string>();
+  const commonElectricityData = useElectricityStore((s) => s.commonData);
 
-  const handleAmperageChange = (value: string) => {
-    setAmperage(value);
-
-    const defaultPhase = getPhaseCount(value)?.[0]?.name;
-    if (!defaultPhase) return;
-    setPhaseCount(defaultPhase);
-
-    const defaultPlan = getPlans(value, defaultPhase)?.[0]?.name;
-    if (!defaultPlan) return;
-    setPlan(defaultPlan);
+  const defaultConfiguration = {
+    plan: "Basic",
+    phases: "1",
+    amperage: "16A",
   };
 
-  const handlePhaseCountChange = (value: string) => {
-    setPhaseCount(value);
-  };
+  const [plan, setPlan] = useState<string>(defaultConfiguration.plan);
+  const [phases, setPhases] = useState<string>(defaultConfiguration.phases);
+  const [amperage, setAmperage] = useState<string>(
+    defaultConfiguration.amperage
+  );
 
-  const handlePlanChange = (value: string) => {
-    setPlan(value);
-  };
+  const planList = useMemo(
+    () => [
+      ...new Set(
+        commonElectricityData.monthlyPowerAvailability.configurations.map(
+          (c) => c.plan
+        )
+      ),
+    ],
+    [commonElectricityData]
+  );
+
+  const phaseList = useMemo(
+    () => [
+      ...new Set(
+        commonElectricityData.monthlyPowerAvailability.configurations.map((c) =>
+          c.phases.toString()
+        )
+      ),
+    ],
+    [commonElectricityData]
+  );
+
+  const amperageList = useMemo(() => {
+    const list = [
+      ...new Set(
+        commonElectricityData.monthlyPowerAvailability.configurations
+          .filter(
+            (c) =>
+              (c.plan === plan || !plan) &&
+              (c.phases.toString() === phases || !phases)
+          )
+          .map((c) => c.amperage + "A")
+      ),
+    ];
+    if (!list.includes(amperage)) {
+      setAmperage("");
+    }
+    return list;
+  }, [commonElectricityData, amperage, phases, plan]);
 
   return (
     <form className="text-sm">
@@ -94,52 +70,70 @@ export default function ElectricityCurrentConnection() {
         <legend className="-ml-1 px-1 font-medium">
           Current Electricity Connection
         </legend>
-        <div>
+        <div className="text-muted-foreground">
           Select the amperage, number of phases, and your electricity connection
           plan. This information should be available in your contract with the
           current provider or on their website.
         </div>
-        <div className="grid grid-cols-3 gap-4">
-          <div className="grid gap-3">
-            <Label htmlFor="amperage">Amperage</Label>
-            <Select onValueChange={handleAmperageChange} value={amperage}>
-              <SelectTrigger id="amperage">
+        <div className="flex flex-col gap-4">
+          <div className="grid grid-cols-7 items-center">
+            <Label htmlFor="plan" className="col-span-3">
+              Plan
+            </Label>
+            <Select
+              defaultValue={defaultConfiguration.plan}
+              onValueChange={setPlan}
+              value={plan}
+            >
+              <SelectTrigger id="plan" className="col-span-4">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {getAmperages().map((a, i) => (
-                  <SelectItem key={i} value={a.name}>
-                    {a.amperage}
+                {planList?.map((plan, index) => (
+                  <SelectItem key={index} value={plan}>
+                    {plan}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
-          <div className="grid gap-3">
-            <Label htmlFor="phaseCount">Phase Count</Label>
-            <Select onValueChange={handlePhaseCountChange} value={phaseCount}>
-              <SelectTrigger id="phaseCount">
+          <div className="grid grid-cols-7 items-center">
+            <Label htmlFor="phases" className="col-span-3">
+              Phase Count
+            </Label>
+            <Select
+              defaultValue={defaultConfiguration.phases}
+              onValueChange={setPhases}
+              value={phases}
+            >
+              <SelectTrigger id="phases" className="col-span-4">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {getPhaseCount(amperage)?.map((p, i) => (
-                  <SelectItem key={i} value={p.name}>
-                    {p.phase}
+                {phaseList?.map((phases, index) => (
+                  <SelectItem key={index} value={phases}>
+                    {phases}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
-          <div className="grid gap-3">
-            <Label htmlFor="plan">Plan</Label>
-            <Select onValueChange={handlePlanChange} value={plan}>
-              <SelectTrigger id="plan">
+          <div className="grid grid-cols-7 items-center">
+            <Label htmlFor="amperage" className="col-span-3">
+              Amperage
+            </Label>
+            <Select
+              defaultValue={defaultConfiguration.amperage}
+              onValueChange={setAmperage}
+              value={amperage}
+            >
+              <SelectTrigger id="amperage" className="col-span-4">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {getPlans(amperage, phaseCount)?.map((p, i) => (
-                  <SelectItem key={i} value={p.name}>
-                    {p.plan}
+                {amperageList?.map((amperage, index) => (
+                  <SelectItem key={index} value={amperage}>
+                    {amperage}
                   </SelectItem>
                 ))}
               </SelectContent>

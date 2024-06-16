@@ -111,7 +111,7 @@ export default function ElectricityCurrentPlan() {
         <legend className="-ml-1 px-1 font-medium">
           Current Electricity Plan
         </legend>
-        <div>
+        <div className="text-muted-foreground">
           Specify current electricity tariff by entering it manually, selecting
           a provider product, or just entering a lump sum amount.
         </div>

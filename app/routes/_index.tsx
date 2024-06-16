@@ -13,12 +13,12 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  const [utilityType, setUtilityType] = useState("account");
+  const [utilityType, setUtilityType] = useState("electricity");
   const getUtilityTable = () => {
     switch (utilityType) {
-      case "account":
+      case "electricity":
         return <ElectricityPage />;
-      case "password":
+      case "gas":
         return <GasTable />;
     }
     return null;
@@ -27,17 +27,17 @@ export default function Index() {
     <div className="relative grid grid-cols-8 gap-8 w-full max-w-screen-xl">
       <div className="col-span-6">
         <div className="flex justify-between">
-          <h2 className="text-xl font-bold">Electricity Providers</h2>
-          <Tabs defaultValue="account" onValueChange={setUtilityType}>
+          <h2 className="text-xl font-bold">Electricity</h2>
+          <Tabs defaultValue="electricity" onValueChange={setUtilityType}>
             <TabsList>
-              <TabsTrigger value="account">Electricity</TabsTrigger>
-              <TabsTrigger value="password">Natural Gas</TabsTrigger>
+              <TabsTrigger value="electricity">Electricity</TabsTrigger>
+              <TabsTrigger value="gas">Natural Gas</TabsTrigger>
             </TabsList>
           </Tabs>
         </div>
         {getUtilityTable()}
       </div>
-      <Card className="sticky h-2/3  " />
+      <Card className="fixed h-[calc(100%-64px)] w-72 justify-self-end" />
     </div>
   );
 }

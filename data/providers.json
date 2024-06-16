@@ -1,0 +1,15 @@
+[
+  {
+    "id": "alexela",
+    "name": "Alexela",
+    "logo": "alexela.png",
+    "electricity": {
+      "plans": [
+        {
+          "name": "Alexela Elekter Fikseeritud",
+          "tariff": 0.1
+        }
+      ]
+    }
+  }
+]

@@ -16,7 +16,7 @@ export default function ElectricityUsage() {
     <form className="text-sm">
       <fieldset className="flex flex-col gap-4 rounded-lg border p-4 h-full">
         <legend className="-ml-1 px-1 font-medium">Electricity Usage</legend>
-        <div>
+        <div className="text-muted-foreground">
           Specify your electricity usage to calculate the cost of the
           electricity and compare provider offers.
         </div>
