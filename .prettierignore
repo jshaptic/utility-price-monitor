@@ -1,0 +1,6 @@
+# Default
+**/.git
+**/node_modules
+
+# Build
+**/build

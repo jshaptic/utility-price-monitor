@@ -1,6 +1,5 @@
-import { create } from "zustand";
-import electricityCommonData from "../../data/electricity-common-data.json";
-import providerData from "../../data/providers.json";
+import electricityCommonData from '../../data/electricity-common-data.json';
+import fullProviderData from '../../data/providers.json';
 
 export type ElectricityCommonData = {
   monthlyPowerAvailability: {
@@ -38,15 +37,8 @@ export type ElectricityProviderData = {
   };
 };
 
-interface ElectricityState {
-  commonData: ElectricityCommonData;
-  providerData: ElectricityProviderData[];
-}
-
-export const useElectricityStore = create<ElectricityState>()(() => ({
-  commonData: electricityCommonData,
-  providerData: providerData.map(({ electricity, ...provider }) => ({
-    ...provider,
-    electricity,
-  })),
+export const commonData: ElectricityCommonData = electricityCommonData;
+export const providerData: ElectricityProviderData[] = fullProviderData.map(({ electricity, ...provider }) => ({
+  ...provider,
+  electricity,
 }));
