@@ -34,16 +34,16 @@ export type ElectricityProvider = {
 export type ElectricityProduct = {
   name: string;
   priceSource: 'stock' | 'provider';
-  onekWhPrice: {
-    value: number;
-    fixed: boolean;
-  };
   contracts: ElectricityContract[];
 };
 
 export type ElectricityContract = {
   description: string;
   period?: number;
+  onekWhPrice: {
+    value: number;
+    fixed: boolean;
+  };
   fixedMonthlyFee: {
     value: number;
     notes?: string;

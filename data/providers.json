@@ -7,13 +7,13 @@
         {
           "name": "Alexela electricity with exchange price",
           "priceSource": "stock",
-          "onekWhPrice": {
-            "value": 0,
-            "fixed": true
-          },
           "contracts": [
             {
               "description": "The price of electricity is determined by the Nord Pool hourly price",
+              "onekWhPrice": {
+                "value": 0,
+                "fixed": true
+              },
               "fixedMonthlyFee": {
                 "value": 0
               },
@@ -28,13 +28,13 @@
         {
           "name": "Alexela exchange offer without mark-up",
           "priceSource": "stock",
-          "onekWhPrice": {
-            "value": 0,
-            "fixed": true
-          },
           "contracts": [
             {
               "description": "The price of electricity is determined by the Nord Pool hourly price",
+              "onekWhPrice": {
+                "value": 0,
+                "fixed": true
+              },
               "fixedMonthlyFee": {
                 "value": 2.93389
               },
@@ -49,14 +49,14 @@
         {
           "name": "Alexela guaranteed price",
           "priceSource": "provider",
-          "onekWhPrice": {
-            "value": 0.10662,
-            "fixed": true
-          },
           "contracts": [
             {
               "description": "Fixed price for each kWh consumed within the 12 month contract period",
               "period": 12,
+              "onekWhPrice": {
+                "value": 0.10662,
+                "fixed": true
+              },
               "fixedMonthlyFee": {
                 "value": 0
               },
@@ -74,14 +74,14 @@
         {
           "name": "Alexela guaranteed price - large consumer",
           "priceSource": "provider",
-          "onekWhPrice": {
-            "value": 0.09835,
-            "fixed": true
-          },
           "contracts": [
             {
               "description": "Fixed price for each kWh consumed within the 12 month contract period",
               "period": 12,
+              "onekWhPrice": {
+                "value": 0.09835,
+                "fixed": true
+              },
               "fixedMonthlyFee": {
                 "value": 1.23967
               },
@@ -99,14 +99,15 @@
         {
           "name": "Alexela universal offer",
           "priceSource": "provider",
-          "onekWhPrice": {
-            "value": 0.185,
-            "fixed": true
-          },
+
           "contracts": [
             {
               "description": "Fixed price for each kWh consumed within the 12 month contract period",
               "period": 12,
+              "onekWhPrice": {
+                "value": 0.185,
+                "fixed": true
+              },
               "fixedMonthlyFee": {
                 "value": 0
               },
@@ -129,14 +130,14 @@
         {
           "name": "Baltcom standard",
           "priceSource": "provider",
-          "onekWhPrice": {
-            "value": 0.12355,
-            "fixed": false
-          },
           "contracts": [
             {
               "description": "12 month contract, price is not fixed, it can potentially change every month",
               "period": 12,
+              "onekWhPrice": {
+                "value": 0.12355,
+                "fixed": false
+              },
               "fixedMonthlyFee": {
                 "value": 1.653,
                 "notes": "If customer uses any other basic Baltcom service, e.g. internet or television, fee is 0.00 EUR."
@@ -153,6 +154,10 @@
             {
               "description": "24 month contract, price is not fixed, it can potentially change every month",
               "period": 24,
+              "onekWhPrice": {
+                "value": 0.12355,
+                "fixed": false
+              },
               "fixedMonthlyFee": {
                 "value": 1.653,
                 "notes": "If customer uses any other basic Baltcom service, e.g. internet or television, fee is 0.00 EUR."
@@ -171,14 +176,193 @@
         {
           "name": "Baltcom universal",
           "priceSource": "provider",
-          "onekWhPrice": {
-            "value": 0.30537,
-            "fixed": true
-          },
           "contracts": [
             {
               "description": "Fixed price for each kWh consumed within the 12 month contract period",
               "period": 12,
+              "onekWhPrice": {
+                "value": 0.30537,
+                "fixed": true
+              },
+              "fixedMonthlyFee": {
+                "value": 0
+              },
+              "productChange": null,
+              "termination": null
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "enefit",
+    "name": "Enefit",
+    "electricity": {
+      "products": [
+        {
+          "name": "Enefit fixed",
+          "priceSource": "provider",
+          "contracts": [
+            {
+              "description": "Fixed price for each kWh consumed within the 6 month contract period",
+              "period": 6,
+              "onekWhPrice": {
+                "value": 0.1124,
+                "fixed": true
+              },
+              "fixedMonthlyFee": {
+                "value": 1.653,
+                "notes": "Each additional connection address receives 50% off the service charge."
+              },
+              "productChange": null,
+              "termination": null
+            },
+            {
+              "description": "Fixed price for each kWh consumed within the 12 month contract period",
+              "period": 12,
+              "onekWhPrice": {
+                "value": 0.1124,
+                "fixed": true
+              },
+              "fixedMonthlyFee": {
+                "value": 1.653,
+                "notes": "Each additional connection address receives 50% off the service charge."
+              },
+              "productChange": {
+                "fee": 5.78513,
+                "period": 3
+              },
+              "termination": {
+                "fee": 5.78513,
+                "period": 3
+              }
+            },
+            {
+              "description": "Fixed price for each kWh consumed within the 24 month contract period",
+              "period": 24,
+              "onekWhPrice": {
+                "value": 0.10414,
+                "fixed": true
+              },
+              "fixedMonthlyFee": {
+                "value": 1.653,
+                "notes": "Each additional connection address receives 50% off the service charge."
+              },
+              "productChange": {
+                "fee": 5.78513,
+                "period": 3
+              },
+              "termination": {
+                "fee": 5.78513,
+                "period": 3
+              }
+            }
+          ]
+        },
+        {
+          "name": "Enefit fixed green",
+          "priceSource": "provider",
+          "contracts": [
+            {
+              "description": "Fixed price for each kWh consumed within the 6 month contract period",
+              "period": 6,
+              "onekWhPrice": {
+                "value": 0.11323,
+                "fixed": true
+              },
+              "fixedMonthlyFee": {
+                "value": 1.653,
+                "notes": "Each additional connection address receives 50% off the service charge."
+              },
+              "productChange": null,
+              "termination": null
+            },
+            {
+              "description": "Fixed price for each kWh consumed within the 12 month contract period",
+              "period": 12,
+              "onekWhPrice": {
+                "value": 0.11323,
+                "fixed": true
+              },
+              "fixedMonthlyFee": {
+                "value": 1.653,
+                "notes": "Each additional connection address receives 50% off the service charge."
+              },
+              "productChange": {
+                "fee": 5.78513,
+                "period": 3
+              },
+              "termination": {
+                "fee": 5.78513,
+                "period": 3
+              }
+            },
+            {
+              "description": "Fixed price for each kWh consumed within the 24 month contract period",
+              "period": 24,
+              "onekWhPrice": {
+                "value": 0.10579,
+                "fixed": true
+              },
+              "fixedMonthlyFee": {
+                "value": 1.653,
+                "notes": "Each additional connection address receives 50% off the service charge."
+              },
+              "productChange": {
+                "fee": 5.78513,
+                "period": 3
+              },
+              "termination": {
+                "fee": 5.78513,
+                "period": 3
+              }
+            }
+          ]
+        },
+        {
+          "name": "Enefit dynamic",
+          "priceSource": "stock",
+          "contracts": [
+            {
+              "description": "Regular",
+              "onekWhPrice": {
+                "value": 0.00496,
+                "fixed": true
+              },
+              "fixedMonthlyFee": {
+                "value": 1.653,
+                "notes": "Each additional connection address receives 50% off the service charge."
+              },
+              "productChange": null,
+              "termination": null
+            },
+            {
+              "description": "Green",
+              "onekWhPrice": {
+                "value": 0.0091,
+                "fixed": true
+              },
+              "fixedMonthlyFee": {
+                "value": 1.653,
+                "notes": "Each additional connection address receives 50% off the service charge."
+              },
+              "productChange": null,
+              "termination": null
+            }
+          ]
+        },
+        {
+          "name": "Enefit universal",
+          "priceSource": "provider",
+          "contracts": [
+            {
+              "description": "Fixed price for each kWh consumed within the 12 month contract period",
+              "period": 12,
+              "onekWhPrice": {
+                "value": 0.14877,
+                "fixed": true
+              },
               "fixedMonthlyFee": {
                 "value": 0
               },

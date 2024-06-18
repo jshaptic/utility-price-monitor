@@ -75,7 +75,7 @@ export const ElectricityComparisonRow: FC<Props> = ({ provider, product, contrac
 
   const connectionPrice =
     connectionFixedPartPrice - connectionFixedPartStateSupport + connectionVariablePartPrice * monthlyUsage;
-  const usagePrice = product.onekWhPrice.value * monthlyUsage;
+  const usagePrice = contract.onekWhPrice.value * monthlyUsage;
   const monthlyFee = contract.fixedMonthlyFee.value;
   const tradingServicesFee = contract.tradingServices?.fee && contract.tradingServices?.fee * monthlyUsage;
   const productChangeFee =
@@ -121,7 +121,7 @@ export const ElectricityComparisonRow: FC<Props> = ({ provider, product, contrac
         </TooltipProvider>
       </TableCell>
       <TableCell className='text-center'>
-        {product.onekWhPrice.fixed ? (
+        {contract.onekWhPrice.fixed ? (
           renderPrice(usagePrice)
         ) : (
           <TooltipProvider>
