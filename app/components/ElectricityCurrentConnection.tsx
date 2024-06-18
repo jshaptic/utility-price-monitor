@@ -1,9 +1,10 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { atom, useAtom } from 'jotai';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select';
 import { Label } from '~/components/ui/label';
 import { commonData } from '~/stores/electricityDataStore';
 import { electricityContextAtom } from '~/pages/ElectricityPage';
+import { Switch } from '~/components/ui/switch';
 
 export const defaultConfiguration = {
   plan: 'Basic',
@@ -35,10 +36,10 @@ export const amperageAtom = atom(
   },
 );
 
-export const currentConnectionAtom = atom((get) => {
+export const fixedPartAtom = atom((get) => {
   const connection = get(electricityContextAtom).connection;
-  if (!connection) return undefined;
-  return commonData.monthlyPowerAvailability.configurations.find(
+  if (!connection) return;
+  return commonData.fixedPart.configurations.find(
     (c) =>
       c.plan === connection.plan &&
       c.phases.toString() === connection.phases &&
@@ -46,25 +47,57 @@ export const currentConnectionAtom = atom((get) => {
   );
 });
 
+export const fixedPartPriceAtom = atom((get) => {
+  const fixedPart = get(fixedPartAtom);
+  if (!fixedPart) return 0;
+  return fixedPart.price;
+});
+
+export const fixedPartDiscountAtom = atom((get) => {
+  const fixedPart = get(fixedPartAtom);
+  if (!fixedPart) return 0;
+  return fixedPart.discount ?? 0;
+});
+
+export const variablePartAtom = atom((get) => {
+  const connection = get(electricityContextAtom).connection;
+  if (!connection) return;
+  return commonData.variablePart.configurations.find((c) => c.plan === connection.plan);
+});
+
+export const variablePartPriceAtom = atom((get) => {
+  const variablePart = get(variablePartAtom);
+  if (!variablePart) return 0;
+  return variablePart.price;
+});
+
+export const hasFixedPartDiscountAtom = atom(false);
+
 export const ElectricityCurrentConnection: FC = () => {
   const [plan, setPlan] = useAtom(planAtom);
   const [phases, setPhases] = useAtom(phasesAtom);
   const [amperage, setAmperage] = useAtom(amperageAtom);
 
-  const planList = useMemo(
-    () => [...new Set(commonData.monthlyPowerAvailability.configurations.map((c) => c.plan))],
-    [],
-  );
+  const [fixedPartDiscount] = useAtom(fixedPartDiscountAtom);
+  const [hasFixedPartDiscount, setHasFixedPartDiscount] = useAtom(hasFixedPartDiscountAtom);
+  const [hasFixedPartDiscountOption, setHasFixedPartDiscountOption] = useState(false);
+
+  useEffect(() => {
+    setHasFixedPartDiscount(fixedPartDiscount > 0);
+    setHasFixedPartDiscountOption(fixedPartDiscount > 0);
+  }, [fixedPartDiscount, setHasFixedPartDiscount]);
+
+  const planList = useMemo(() => [...new Set(commonData.fixedPart.configurations.map((c) => c.plan))], []);
 
   const phaseList = useMemo(
-    () => [...new Set(commonData.monthlyPowerAvailability.configurations.map((c) => c.phases.toString()))],
+    () => [...new Set(commonData.fixedPart.configurations.map((c) => c.phases.toString()))],
     [],
   );
 
   const amperageList = useMemo(() => {
     const list = [
       ...new Set(
-        commonData.monthlyPowerAvailability.configurations
+        commonData.fixedPart.configurations
           .filter((c) => (c.plan === plan || !plan) && (c.phases.toString() === phases || !phases))
           .map((c) => c.amperage + 'A'),
       ),
@@ -83,7 +116,7 @@ export const ElectricityCurrentConnection: FC = () => {
           Select the amperage, number of phases, and your electricity connection plan. This information should be
           available in your contract with the current provider or on their website.
         </div>
-        <div className='flex flex-col gap-4'>
+        <div className='grid auto-rows-fr gap-4'>
           <div className='grid grid-cols-7 items-center'>
             <Label htmlFor='plan' className='col-span-3'>
               Plan
@@ -134,6 +167,18 @@ export const ElectricityCurrentConnection: FC = () => {
                 ))}
               </SelectContent>
             </Select>
+          </div>
+          <div className='grid grid-cols-7 items-center'>
+            <Label htmlFor='amperage' className='col-span-3'>
+              Discount
+            </Label>
+            <Switch
+              id='discount'
+              checked={hasFixedPartDiscount}
+              onCheckedChange={setHasFixedPartDiscount}
+              disabled={!hasFixedPartDiscountOption}
+              className='col-span-4'
+            />
           </div>
         </div>
       </fieldset>

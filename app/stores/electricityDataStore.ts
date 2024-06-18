@@ -2,7 +2,7 @@ import electricityCommonData from '../../data/electricity-common-data.json';
 import fullProviderData from '../../data/providers.json';
 
 export type ElectricityCommonData = {
-  monthlyPowerAvailability: {
+  fixedPart: {
     vendor: string;
     description: string;
     configurations: {
@@ -11,15 +11,15 @@ export type ElectricityCommonData = {
       phases: number;
       amperage: number;
       price: number;
+      discount?: number;
     }[];
   };
-  onekWhDelivery: {
+  variablePart: {
     vendor: string;
     description: string;
     configurations: {
       id: string;
       plan: string;
-      phases: number;
       price: number;
     }[];
   };
@@ -28,17 +28,41 @@ export type ElectricityCommonData = {
 export type ElectricityProviderData = {
   id: string;
   name: string;
-  logo: string;
-  electricity: {
-    plans: {
-      name: string;
-      tariff: number;
-    }[];
-  };
+  products: {
+    name: string;
+    priceSource: 'stock' | 'provider';
+    onekWhPrice: {
+      value: number;
+      fixed: boolean;
+    };
+    contracts: [
+      {
+        description: string;
+        period?: number;
+        fixedMonthlyFee: {
+          value: number;
+        };
+        tradingServices?: {
+          fee: number;
+        };
+        productChange: {
+          fee: number;
+          period: number;
+        } | null;
+        termination: {
+          fee: number;
+          period: number;
+        } | null;
+      },
+    ];
+  }[];
 };
 
 export const commonData: ElectricityCommonData = electricityCommonData;
-export const providerData: ElectricityProviderData[] = fullProviderData.map(({ electricity, ...provider }) => ({
-  ...provider,
-  electricity,
-}));
+export const providerData: ElectricityProviderData[] = fullProviderData.map(
+  ({ electricity, ...provider }) =>
+    ({
+      ...provider,
+      products: electricity.products,
+    } as ElectricityProviderData),
+);

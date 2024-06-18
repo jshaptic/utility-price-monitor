@@ -1,5 +1,5 @@
 {
-  "monthlyPowerAvailability": {
+  "fixedPart": {
     "vendor": "Sadales Tīkls (ST)",
     "description": "Monthly power availability fee",
     "configurations": [
@@ -8,198 +8,176 @@
         "plan": "Basic",
         "phases": 1,
         "amperage": 16,
-        "price": 3.92
+        "price": 5.44,
+        "discount": 2.20
       },
       {
         "id": "basic-1phase-20a",
         "plan": "Basic",
         "phases": 1,
         "amperage": 20,
-        "price": 4.53
+        "price": 6.80,
+        "discount": 3.06
       },
       {
         "id": "basic-1phase-25a",
         "plan": "Basic",
         "phases": 1,
         "amperage": 25,
-        "price": 5.13
+        "price": 8.50,
+        "discount": 4.26
       },
       {
         "id": "basic-1phase-32a",
         "plan": "Basic",
         "phases": 1,
         "amperage": 32,
-        "price": 13.16
-      },
-      {
-        "id": "basic-1phase-40a",
-        "plan": "Basic",
-        "phases": 1,
-        "amperage": 40,
-        "price": 16.46
+        "price": 10.88
       },
       {
         "id": "basic-3phase-16a",
         "plan": "Basic",
         "phases": 3,
         "amperage": 16,
-        "price": 8.71
+        "price": 13.12,
+        "discount": 5.92
       },
       {
         "id": "basic-3phase-20a",
         "plan": "Basic",
         "phases": 3,
         "amperage": 20,
-        "price": 10.29
+        "price": 16.40,
+        "discount": 7.9
       },
       {
         "id": "basic-3phase-25a",
         "plan": "Basic",
         "phases": 3,
         "amperage": 25,
-        "price": 13.31
+        "price": 20.50,
+        "discount": 9.5
       },
       {
         "id": "basic-3phase-32a",
         "plan": "Basic",
         "phases": 3,
         "amperage": 32,
-        "price": 31.75
+        "price": 26.24
       },
       {
         "id": "basic-3phase-40a",
         "plan": "Basic",
         "phases": 3,
         "amperage": 40,
-        "price": 39.69
+        "price": 32.80
       },
       {
         "id": "basic-3phase-50a",
         "plan": "Basic",
         "phases": 3,
         "amperage": 50,
-        "price": 49.61
+        "price": 41.00
       },
       {
         "id": "basic-3phase-63a",
         "plan": "Basic",
         "phases": 3,
         "amperage": 63,
-        "price": 62.51
+        "price": 51.66
       },
       {
         "id": "special-1phase-16a",
         "plan": "Special",
         "phases": 1,
         "amperage": 16,
-        "price": 2.71
+        "price": 2.24
       },
       {
         "id": "special-1phase-20a",
         "plan": "Special",
         "phases": 1,
         "amperage": 20,
-        "price": 3.39
+        "price": 2.80
       },
       {
         "id": "special-1phase-25a",
         "plan": "Special",
         "phases": 1,
         "amperage": 25,
-        "price": 4.24
+        "price": 3.50
       },
       {
         "id": "special-1phase-32a",
         "plan": "Special",
         "phases": 1,
         "amperage": 32,
-        "price": 5.42
-      },
-      {
-        "id": "special-1phase-40a",
-        "plan": "Special",
-        "phases": 1,
-        "amperage": 40,
-        "price": 6.78
+        "price": 4.48
       },
       {
         "id": "special-3phase-16a",
         "plan": "Special",
         "phases": 3,
         "amperage": 16,
-        "price": 6.39
+        "price": 5.28
       },
       {
         "id": "special-3phase-20a",
         "plan": "Special",
         "phases": 3,
         "amperage": 20,
-        "price": 7.99
+        "price": 6.60
       },
       {
         "id": "special-3phase-25a",
         "plan": "Special",
         "phases": 3,
         "amperage": 25,
-        "price": 9.98
+        "price": 8.25
       },
       {
         "id": "special-3phase-32a",
         "plan": "Special",
         "phases": 3,
         "amperage": 32,
-        "price": 12.78
+        "price": 10.56
       },
       {
         "id": "special-3phase-40a",
         "plan": "Special",
         "phases": 3,
         "amperage": 40,
-        "price": 15.97
+        "price": 13.20
       },
       {
         "id": "special-3phase-50a",
         "plan": "Special",
         "phases": 3,
         "amperage": 50,
-        "price": 19.97
+        "price": 16.50
       },
       {
         "id": "special-3phase-63a",
         "plan": "Special",
         "phases": 3,
         "amperage": 63,
-        "price": 25.16
+        "price": 20.79
       }
     ]
   },
-  "onekWhDelivery": {
+  "variablePart": {
     "vendor": "Sadales Tīkls (ST)",
     "description": "Price for 1 kWh delivery",
     "configurations": [
       {
         "id": "basic-1phase",
         "plan": "Basic",
-        "phases": 1,
-        "price": 0.04794
-      },
-      {
-        "id": "basic-3phase",
-        "plan": "Basic",
-        "phases": 3,
-        "price": 0.04794
+        "price": 0.03962
       },
       {
         "id": "special-1phase",
         "plan": "Special",
-        "phases": 1,
-        "price": 0.19176
-      },
-      {
-        "id": "special-3phase",
-        "plan": "Special",
-        "phases": 3,
-        "price": 0.19176
+        "price": 0.15848
       }
     ]
   }

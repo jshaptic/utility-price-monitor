@@ -2,12 +2,190 @@
   {
     "id": "alexela",
     "name": "Alexela",
-    "logo": "alexela.png",
     "electricity": {
-      "plans": [
+      "products": [
         {
-          "name": "Alexela Elekter Fikseeritud",
-          "tariff": 0.1
+          "name": "Alexela electricity with exchange price",
+          "priceSource": "stock",
+          "onekWhPrice": {
+            "value": 0,
+            "fixed": true
+          },
+          "contracts": [
+            {
+              "description": "The price of electricity is determined by the Nord Pool hourly price",
+              "fixedMonthlyFee": {
+                "value": 0
+              },
+              "tradingServices": {
+                "fee": 0.00372
+              },
+              "productChange": null,
+              "termination": null
+            }
+          ]
+        },
+        {
+          "name": "Alexela exchange offer without mark-up",
+          "priceSource": "stock",
+          "onekWhPrice": {
+            "value": 0,
+            "fixed": true
+          },
+          "contracts": [
+            {
+              "description": "The price of electricity is determined by the Nord Pool hourly price",
+              "fixedMonthlyFee": {
+                "value": 2.93389
+              },
+              "tradingServices": {
+                "fee": 0
+              },
+              "productChange": null,
+              "termination": null
+            }
+          ]
+        },
+        {
+          "name": "Alexela guaranteed price",
+          "priceSource": "provider",
+          "onekWhPrice": {
+            "value": 0.10662,
+            "fixed": true
+          },
+          "contracts": [
+            {
+              "description": "Fixed price for each kWh consumed within the 12 month contract period",
+              "period": 12,
+              "fixedMonthlyFee": {
+                "value": 0
+              },
+              "productChange": {
+                "fee": 4.13224,
+                "period": 3
+              },
+              "termination": {
+                "fee": 4.13224,
+                "period": 3
+              }
+            }
+          ]
+        },
+        {
+          "name": "Alexela guaranteed price - large consumer",
+          "priceSource": "provider",
+          "onekWhPrice": {
+            "value": 0.09835,
+            "fixed": true
+          },
+          "contracts": [
+            {
+              "description": "Fixed price for each kWh consumed within the 12 month contract period",
+              "period": 12,
+              "fixedMonthlyFee": {
+                "value": 1.23967
+              },
+              "productChange": {
+                "fee": 4.13224,
+                "period": 3
+              },
+              "termination": {
+                "fee": 4.13224,
+                "period": 3
+              }
+            }
+          ]
+        },
+        {
+          "name": "Alexela universal offer",
+          "priceSource": "provider",
+          "onekWhPrice": {
+            "value": 0.185,
+            "fixed": true
+          },
+          "contracts": [
+            {
+              "description": "Fixed price for each kWh consumed within the 12 month contract period",
+              "period": 12,
+              "fixedMonthlyFee": {
+                "value": 0
+              },
+              "productChange": null,
+              "termination": {
+                "fee": 4.13224,
+                "period": 3
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "baltcom",
+    "name": "Baltcom",
+    "electricity": {
+      "products": [
+        {
+          "name": "Baltcom standard",
+          "priceSource": "provider",
+          "onekWhPrice": {
+            "value": 0.12355,
+            "fixed": false
+          },
+          "contracts": [
+            {
+              "description": "12 month contract, price is not fixed, it can potentially change every month",
+              "period": 12,
+              "fixedMonthlyFee": {
+                "value": 1.653,
+                "notes": "If customer uses any other basic Baltcom service, e.g. internet or television, fee is 0.00 EUR."
+              },
+              "productChange": {
+                "fee": 8.26447,
+                "period": 3
+              },
+              "termination": {
+                "fee": 8.26447,
+                "period": 3
+              }
+            },
+            {
+              "description": "24 month contract, price is not fixed, it can potentially change every month",
+              "period": 24,
+              "fixedMonthlyFee": {
+                "value": 1.653,
+                "notes": "If customer uses any other basic Baltcom service, e.g. internet or television, fee is 0.00 EUR."
+              },
+              "productChange": {
+                "fee": 6.19835,
+                "period": 3
+              },
+              "termination": {
+                "fee": 6.19835,
+                "period": 3
+              }
+            }
+          ]
+        },
+        {
+          "name": "Baltcom universal",
+          "priceSource": "provider",
+          "onekWhPrice": {
+            "value": 0.30537,
+            "fixed": true
+          },
+          "contracts": [
+            {
+              "description": "Fixed price for each kWh consumed within the 12 month contract period",
+              "period": 12,
+              "fixedMonthlyFee": {
+                "value": 0
+              },
+              "productChange": null,
+              "termination": null
+            }
+          ]
         }
       ]
     }
