@@ -53,10 +53,10 @@ export const fixedPartPriceAtom = atom((get) => {
   return fixedPart.price;
 });
 
-export const fixedPartDiscountAtom = atom((get) => {
+export const fixedPartStateSupportAtom = atom((get) => {
   const fixedPart = get(fixedPartAtom);
   if (!fixedPart) return 0;
-  return fixedPart.discount ?? 0;
+  return fixedPart.stateSupport ?? 0;
 });
 
 export const variablePartAtom = atom((get) => {
@@ -71,21 +71,21 @@ export const variablePartPriceAtom = atom((get) => {
   return variablePart.price;
 });
 
-export const hasFixedPartDiscountAtom = atom(false);
+export const hasFixedPartStateSupportAtom = atom(false);
 
 export const ElectricityCurrentConnection: FC = () => {
   const [plan, setPlan] = useAtom(planAtom);
   const [phases, setPhases] = useAtom(phasesAtom);
   const [amperage, setAmperage] = useAtom(amperageAtom);
 
-  const [fixedPartDiscount] = useAtom(fixedPartDiscountAtom);
-  const [hasFixedPartDiscount, setHasFixedPartDiscount] = useAtom(hasFixedPartDiscountAtom);
-  const [hasFixedPartDiscountOption, setHasFixedPartDiscountOption] = useState(false);
+  const [fixedPartStateSupport] = useAtom(fixedPartStateSupportAtom);
+  const [hasFixedPartStateSupport, setHasFixedPartStateSupport] = useAtom(hasFixedPartStateSupportAtom);
+  const [hasFixedPartStateSupportOption, setHasFixedPartStateSupportOption] = useState(false);
 
   useEffect(() => {
-    setHasFixedPartDiscount(fixedPartDiscount > 0);
-    setHasFixedPartDiscountOption(fixedPartDiscount > 0);
-  }, [fixedPartDiscount, setHasFixedPartDiscount]);
+    setHasFixedPartStateSupport(fixedPartStateSupport > 0);
+    setHasFixedPartStateSupportOption(fixedPartStateSupport > 0);
+  }, [fixedPartStateSupport, setHasFixedPartStateSupport]);
 
   const planList = useMemo(() => [...new Set(commonData.fixedPart.configurations.map((c) => c.plan))], []);
 
@@ -169,14 +169,14 @@ export const ElectricityCurrentConnection: FC = () => {
             </Select>
           </div>
           <div className='grid grid-cols-7 items-center'>
-            <Label htmlFor='amperage' className='col-span-3'>
-              Discount
+            <Label htmlFor='stateSupport' className='col-span-3'>
+              State Support
             </Label>
             <Switch
-              id='discount'
-              checked={hasFixedPartDiscount}
-              onCheckedChange={setHasFixedPartDiscount}
-              disabled={!hasFixedPartDiscountOption}
+              id='stateSupport'
+              checked={hasFixedPartStateSupport}
+              onCheckedChange={setHasFixedPartStateSupport}
+              disabled={!hasFixedPartStateSupportOption}
               className='col-span-4'
             />
           </div>

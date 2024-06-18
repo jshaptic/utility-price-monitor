@@ -11,7 +11,7 @@ export type ElectricityCommonData = {
       phases: number;
       amperage: number;
       price: number;
-      discount?: number;
+      stateSupport?: number;
     }[];
   };
   variablePart: {
@@ -25,44 +25,47 @@ export type ElectricityCommonData = {
   };
 };
 
-export type ElectricityProviderData = {
+export type ElectricityProvider = {
   id: string;
   name: string;
-  products: {
-    name: string;
-    priceSource: 'stock' | 'provider';
-    onekWhPrice: {
-      value: number;
-      fixed: boolean;
-    };
-    contracts: [
-      {
-        description: string;
-        period?: number;
-        fixedMonthlyFee: {
-          value: number;
-        };
-        tradingServices?: {
-          fee: number;
-        };
-        productChange: {
-          fee: number;
-          period: number;
-        } | null;
-        termination: {
-          fee: number;
-          period: number;
-        } | null;
-      },
-    ];
-  }[];
+  products: ElectricityProduct[];
+};
+
+export type ElectricityProduct = {
+  name: string;
+  priceSource: 'stock' | 'provider';
+  onekWhPrice: {
+    value: number;
+    fixed: boolean;
+  };
+  contracts: ElectricityContract[];
+};
+
+export type ElectricityContract = {
+  description: string;
+  period?: number;
+  fixedMonthlyFee: {
+    value: number;
+    notes?: string;
+  };
+  tradingServices?: {
+    fee: number;
+  };
+  productChange: {
+    fee: number;
+    period: number;
+  } | null;
+  termination: {
+    fee: number;
+    period: number;
+  } | null;
 };
 
 export const commonData: ElectricityCommonData = electricityCommonData;
-export const providerData: ElectricityProviderData[] = fullProviderData.map(
+export const providerData: ElectricityProvider[] = fullProviderData.map(
   ({ electricity, ...provider }) =>
     ({
       ...provider,
       products: electricity.products,
-    } as ElectricityProviderData),
+    } as ElectricityProvider),
 );

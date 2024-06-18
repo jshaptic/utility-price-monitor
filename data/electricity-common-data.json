@@ -9,7 +9,7 @@
         "phases": 1,
         "amperage": 16,
         "price": 5.44,
-        "discount": 2.20
+        "stateSupport": 2.20
       },
       {
         "id": "basic-1phase-20a",
@@ -17,7 +17,7 @@
         "phases": 1,
         "amperage": 20,
         "price": 6.80,
-        "discount": 3.06
+        "stateSupport": 3.06
       },
       {
         "id": "basic-1phase-25a",
@@ -25,7 +25,7 @@
         "phases": 1,
         "amperage": 25,
         "price": 8.50,
-        "discount": 4.26
+        "stateSupport": 4.26
       },
       {
         "id": "basic-1phase-32a",
@@ -40,7 +40,7 @@
         "phases": 3,
         "amperage": 16,
         "price": 13.12,
-        "discount": 5.92
+        "stateSupport": 5.92
       },
       {
         "id": "basic-3phase-20a",
@@ -48,7 +48,7 @@
         "phases": 3,
         "amperage": 20,
         "price": 16.40,
-        "discount": 7.9
+        "stateSupport": 7.9
       },
       {
         "id": "basic-3phase-25a",
@@ -56,7 +56,7 @@
         "phases": 3,
         "amperage": 25,
         "price": 20.50,
-        "discount": 9.5
+        "stateSupport": 9.5
       },
       {
         "id": "basic-3phase-32a",
