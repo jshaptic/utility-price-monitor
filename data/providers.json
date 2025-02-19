@@ -6,7 +6,7 @@
       "products": [
         {
           "name": "Alexela electricity with exchange price",
-          "priceSource": "stock",
+          "priceSource": "market",
           "contracts": [
             {
               "description": "The price of electricity is determined by the Nord Pool hourly price",
@@ -27,7 +27,7 @@
         },
         {
           "name": "Alexela exchange offer without mark-up",
-          "priceSource": "stock",
+          "priceSource": "market",
           "contracts": [
             {
               "description": "The price of electricity is determined by the Nord Pool hourly price",
@@ -322,7 +322,7 @@
         },
         {
           "name": "Enefit dynamic",
-          "priceSource": "stock",
+          "priceSource": "market",
           "contracts": [
             {
               "description": "Regular",

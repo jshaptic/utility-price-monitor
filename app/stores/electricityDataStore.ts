@@ -33,7 +33,7 @@ export type ElectricityProvider = {
 
 export type ElectricityProduct = {
   name: string;
-  priceSource: 'stock' | 'provider';
+  priceSource: 'market' | 'provider';
   contracts: ElectricityContract[];
 };
 

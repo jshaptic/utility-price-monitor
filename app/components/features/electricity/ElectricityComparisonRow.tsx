@@ -8,11 +8,13 @@ import {
   fixedPartStateSupportAtom as connectionFixedPartStateSupportAtom,
   hasFixedPartStateSupportAtom as connectionHasFixedPartStateSupportAtom,
   variablePartPriceAtom as connectionVariablePartPriceAtom,
-} from './ElectricityCurrentConnection';
+} from '~/stores/electricity/atoms';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip';
-import { IconInfoCircle, IconInfoTriangle } from '@tabler/icons-react';
-import { cn } from '~/lib/utils';
+import { InfoIcon } from '~/components/InfoIcon';
 import type { ElectricityContract, ElectricityProduct, ElectricityProvider } from '~/stores/electricityDataStore';
+import { MonthlyBill } from './MonthlyBill';
+import { useElectricityContext } from '~/context/ElectricityContext';
+import { MonthlyUsagePrice } from '~/components/features/electricity/MonthlyUsagePrice';
 
 type Props = {
   provider: Omit<ElectricityProvider, 'products'>;
@@ -60,6 +62,9 @@ export const ElectricityComparisonRow: FC<Props> = ({ provider, product, contrac
     setMonthlyUsage(monthlyUsageFromStorage);
   }, [monthlyUsageFromStorage]);
 
+  // Market prices
+  const { marketPrices } = useElectricityContext();
+
   // Render functions
   const renderMonthCount = useCallback(
     (value?: number) => (value === undefined ? '---' : value === 1 ? '1 month' : `${value} months`),
@@ -75,7 +80,6 @@ export const ElectricityComparisonRow: FC<Props> = ({ provider, product, contrac
 
   const connectionPrice =
     connectionFixedPartPrice - connectionFixedPartStateSupport + connectionVariablePartPrice * monthlyUsage;
-  const usagePrice = contract.onekWhPrice.value * monthlyUsage;
   const monthlyFee = contract.fixedMonthlyFee.value;
   const tradingServicesFee = contract.tradingServices?.fee && contract.tradingServices?.fee * monthlyUsage;
   const productChangeFee =
@@ -88,7 +92,14 @@ export const ElectricityComparisonRow: FC<Props> = ({ provider, product, contrac
     contract?.period &&
     contract.termination?.period &&
     (contract.termination.fee * contract.period) / contract.termination.period;
-  const totalMonthlyBill = connectionPrice + usagePrice + monthlyFee;
+
+  const monthlyUsagePrice =
+    product.priceSource === 'market'
+      ? {
+          min: (marketPrices?.yearlyMinPricePerKwh ?? 0) * monthlyUsage,
+          max: (marketPrices?.yearlyMaxPricePerKwh ?? 0) * monthlyUsage,
+        }
+      : contract.onekWhPrice.value * monthlyUsage;
 
   return (
     <TableRow className='h-12'>
@@ -96,10 +107,8 @@ export const ElectricityComparisonRow: FC<Props> = ({ provider, product, contrac
         <div>{getLogo(provider.id)}</div>
       </TableCell>
       <TableCell>{product.name}</TableCell>
+      <MonthlyBill connectionPrice={connectionPrice} monthlyUsagePrice={monthlyUsagePrice} monthlyFee={monthlyFee} />
       <TableCell>{contract.description}</TableCell>
-      <TableCell className='text-base text-center font-semibold border bg-slate-700 border-slate-700 text-white'>
-        {renderPrice(totalMonthlyBill)}
-      </TableCell>
       <TableCell className='text-center'>{renderMonthCount(contract.period)}</TableCell>
       <TableCell className='text-center'>
         <TooltipProvider>
@@ -120,24 +129,7 @@ export const ElectricityComparisonRow: FC<Props> = ({ provider, product, contrac
           </Tooltip>
         </TooltipProvider>
       </TableCell>
-      <TableCell className='text-center'>
-        {contract.onekWhPrice.fixed ? (
-          renderPrice(usagePrice)
-        ) : (
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <span className='relative'>
-                  {renderPrice(usagePrice)} <InfoIcon type='attention' />
-                </span>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Price is not fixed, it can potential vary from month to month</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        )}
-      </TableCell>
+      <MonthlyUsagePrice monthlyUsagePrice={monthlyUsagePrice} fixed={contract.onekWhPrice.fixed} />
       <TableCell className='text-center'>
         {!contract.fixedMonthlyFee.notes ? (
           renderPrice(monthlyFee)
@@ -206,17 +198,3 @@ export const ElectricityComparisonRow: FC<Props> = ({ provider, product, contrac
 function getLogo(provider: string) {
   return <img src={`/img/logos/${provider.toLowerCase()}.png`} alt={provider} className='max-h-8 mr-2' />;
 }
-
-type InfoIconProps = {
-  type?: 'normal' | 'attention';
-  className?: string;
-};
-
-const InfoIcon: FC<InfoIconProps> = ({ type, className }) => {
-  if (!type || type === 'normal') {
-    return <IconInfoCircle size={14} className={cn('absolute -right-5 -top-1', className)} />;
-  }
-  if (type === 'attention') {
-    return <IconInfoTriangle size={14} className={cn('absolute -right-5 -top-1 stroke-red-900', className)} />;
-  }
-};

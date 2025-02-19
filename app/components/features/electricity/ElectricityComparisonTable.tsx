@@ -28,10 +28,10 @@ export const ElectricityComparisonTable: FC = () => {
             <TableRow>
               <TableHead className='w-[100px]'>Provider</TableHead>
               <TableHead className='w-[120px]'>Product</TableHead>
-              <TableHead className='w-[200px]'>Contract Description</TableHead>
               <TableHead className='text-base text-center font-semibold border bg-slate-700 border-slate-700 text-white'>
                 Monthly Bill
               </TableHead>
+              <TableHead className='w-[200px]'>Contract Description</TableHead>
               <TableHead className='text-center'>Contract Period</TableHead>
               <TableHead className='text-center'>Connection Price</TableHead>
               <TableHead className='text-center'>Monthly Usage Price</TableHead>

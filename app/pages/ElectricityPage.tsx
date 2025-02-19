@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { atomWithStorage, createJSONStorage } from 'jotai/utils';
-import { ElectricityComparisonTable } from '~/components/ElectricityComparisonTable';
-import { ElectricityCurrentConnection } from '~/components/ElectricityCurrentConnection';
-import ElectricityCurrentPlan from '~/components/ElectricityCurrentPlan';
-import { ElectricityUsage } from '~/components/ElectricityUsage';
-import ElectricityHistoryChart from '~/components/ElectricityHistoryChart';
+import { ElectricityComparisonTable } from '~/components/features/electricity/ElectricityComparisonTable';
+import { ElectricityCurrentConnection } from '~/components/features/electricity/ElectricityCurrentConnection';
+import ElectricityCurrentPlan from '~/components/features/electricity/ElectricityCurrentPlan';
+import { ElectricityUsage } from '~/components/features/electricity/ElectricityUsage';
+// import ElectricityHistoryChart from '~/components/ElectricityHistoryChart';
 import { ScrollArea } from '~/components/ui/scroll-area';
 
 export type ElectricityContext = {
@@ -33,7 +33,7 @@ export const ElectricityPage: FC = () => {
           <ElectricityUsage />
         </div>
         <ElectricityComparisonTable />
-        <ElectricityHistoryChart />
+        {/* <ElectricityHistoryChart /> */}
       </div>
     </ScrollArea>
   );

@@ -5,7 +5,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui/table";
+} from "~/components/ui/table";
 
 export default function Index() {
   return (
