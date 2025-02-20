@@ -1,4 +1,3 @@
-import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { useMemo } from 'react';
 import { ElectricityContext } from '~/context/ElectricityContext';
@@ -8,7 +7,7 @@ import type { ElectricityContextType } from '~/types';
 
 export const loader = async () => {
   const prices = await getMarketPrices();
-  return json({ prices });
+  return { prices };
 };
 
 export default function ElectricityRoute() {
